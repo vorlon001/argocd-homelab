@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment-v10
+  labels:
+    app: nginx-v10
+spec:
+  replicas: 52
+  selector:
+    matchLabels:
+      app: nginx-v10
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        app: nginx-v10
+    spec:
+      containers:
+      - name: nginx-v10
+        image: docker.io/nginx:1.21.3
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "22Mi"
+            cpu: "124m"
+          limits:
+            memory: "44Mi"
+            cpu: "444m"
